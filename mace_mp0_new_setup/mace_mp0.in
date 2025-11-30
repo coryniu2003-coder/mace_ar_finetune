@@ -1,0 +1,41 @@
+# LAMMPS + MACE MPA-0 (MP0) example via ML-GNNP driver
+
+units         metal
+boundary      p p p
+atom_style    atomic
+atom_modify   map array
+
+log           ${log_file}
+
+pair_style    mace no_domain_decomposition
+
+read_data     dat.lammps
+
+# Use the fine-tuned Ar model (epoch 1) exported via create_lammps_model
+pair_coeff    * *  ar_finetune_epoch1.model-lammps.pt  Ar
+
+mass           1 39.948
+
+# Wrapper provides ${dump_root} via the command line to decide where dumps land.
+variable dumpdir string ${dump_root}
+
+thermo_style  custom step time cpu pe ke etotal temp press vol density
+thermo        10
+
+velocity      all create 1800.0 12345
+fix           myEnse all nvt temp 1800.0 1800.0 0.1
+timestep      5.0e-4
+
+variable dump_stride equal 10
+variable nloop equal floor((${total_steps} + ${chunk_steps} - 1)/${chunk_steps})
+variable i loop ${nloop}
+label chunk_loop
+variable remaining equal ${total_steps} - ${chunk_steps}*(v_i-1)
+variable steps_this_run equal (${chunk_steps} + v_remaining - abs(${chunk_steps} - v_remaining))/2.0
+variable dumpfile string ${dumpdir}/xyz_${i}.lammpstrj
+dump          myDump all custom ${dump_stride} ${dumpfile} id element xu yu zu
+dump_modify   myDump sort id element Ar flush yes
+run           ${steps_this_run}
+undump        myDump
+next i
+jump SELF chunk_loop

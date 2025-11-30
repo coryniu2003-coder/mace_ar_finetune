@@ -1,0 +1,12 @@
+# Local environment and large raw datasets
+fcc-p-10/ar_train.xyz
+fcc-p-10/T-*/vasprun.xml
+fcc-p-10/T-*.traj
+fcc-p-10/T-*/XDATCAR
+fcc-p-10/logs/
+fcc-p-10/results/
+fcc-p-10/checkpoints/
+fcc-p-10/mace_runs/
+Ar_result/
+mace_mp0_new_setup/archive/
+mace_mp0_new_setup/dumps/
