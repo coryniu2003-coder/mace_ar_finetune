@@ -168,7 +168,7 @@ OUTPUT_DIR=~/Ar_result/mace_new RUN_LABEL=900K ./run_mace_mp0.sh -in mace_mp0_90
 OUTPUT_DIR=~/Ar_result/mace_new RUN_LABEL=1500K ./run_mace_mp0.sh -in mace_mp0_1500K.in
 ```
 
-The RTX 3080 typically sits around 85 W for one job, so running two in parallel is fine. Just ensure `dump_root` (handled by the wrapper) and `RUN_LABEL` differ so outputs do not overwrite.
+The RTX 3080 typically sits around 85 W for one job, so in theory, running two in parallel is fine (but in practice, my computer crash when running two in parallel). Just ensure `dump_root` (handled by the wrapper) and `RUN_LABEL` differ so outputs do not overwrite.
 
 ### Direct LAMMPS invocation
 
