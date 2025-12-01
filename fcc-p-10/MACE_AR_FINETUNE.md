@@ -35,7 +35,7 @@ Each `.traj` (5 k frames) was stratified into 4 k/500/500 splits and written
 ## 2. Environment & tooling
 
 - Conda env: `mace-env` (PyTorch 2.4 CUDA 12.4 + `mace-torch==0.3.14`, ASE, pymatgen).
-- GPU: RTX 3080 (10 GB VRAM, single card used for *all* training and inference runs); CPU: Threadripper 3990X.
+- GPU: RTX 3080 (10 GB VRAM, single card used for *all* training and inference runs); CPU: Threadripper 3990X (only 1% CPU usage, can be replaced by any other CPU).
 - Key env vars before training (or add to `.bashrc`):
 
 ```bash
